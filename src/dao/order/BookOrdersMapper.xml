@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.order.BookOrdersMapper">
+
+
+	<!-- 增加订单的操作 -->
+	<insert id="saveOrder" parameterType="Orders">
+		insert into system_book_orders(oid,bid,count,curPrice,date,userId) 
+		values(#{oid},#{bid},#{count},#{curPrice},#{date},#{userId})
+	</insert>
+	
+	
+	<!-- 查询指定用户的订单详情 -->
+	<select id= "getOrderList" resultMap="olist">
+		select o.*,b.*  from system_book_orders o
+		inner join system_book_info b on(o.bid=b.id)
+		<where>
+			<if test="userId != null">
+				and userId=#{userId}
+			</if>
+		</where>
+	</select>
+	
+	<resultMap type="Orders" id="olist" autoMapping="true">
+		<!-- 为图书的实例添加映射 -->
+		<association property="bookInfo" javaType="Info" autoMapping="true" >
+		</association>
+	</resultMap>
+	<!-- 订单总价格的更新  -->
+	<update id="update">
+		update system_book_orders 
+		<set>
+			<if test="count>0">
+				count=#{count},
+			</if>
+			<if test="curPrice>0.0">
+				curPrice=#{curPrice}
+			</if>
+		</set>
+		<where>
+			<if test="oid!=null and oid!=''">
+				oid=#{oid}
+			</if>
+		</where>
+	</update>
+
+
+</mapper>
