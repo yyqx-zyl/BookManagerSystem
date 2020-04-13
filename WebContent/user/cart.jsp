@@ -9,14 +9,7 @@
   </head>  
   <body>
     <div id="container">
-    	<div id="header">
-    		<div id="tool-bar">&nbsp;&nbsp; 欢迎光临智远图书网， [
-    			<c:if test="${!empty user }" var="res">${userName }</c:if>
-    			<c:if test="${!res }"><a href="${pageContext.request.contextPath}/user/user-login.jsp">请登录</a></c:if>]
-    			&nbsp;&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/user/index.jsp">首页
-    			</a>&nbsp;|&nbsp;<a href="${pageContext.request.contextPath}/user/cart.jsp">我的购物车</a>
-    			&nbsp;|&nbsp;<a href="#">我的订单</a>&nbsp;|&nbsp;</div>
-    	</div>   
+    	<%@ include file="top.jsp" %>
     	<form id="search-bar" action="" method="post">
 	    		书名：<input type="text" class="txt" name="condition" />
 	    		<input id="search-btn" type="submit" value=" 搜索图书 " />

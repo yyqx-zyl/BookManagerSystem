@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,10 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.Session;
 import org.apache.commons.codec.digest.DigestUtils;
 import com.mysql.jdbc.StringUtils;
 
-import pojo.Info;
 import pojo.User;
 import service.user.BookUserService;
 import service.user.BookUserServiceImpl;
@@ -42,6 +43,10 @@ public class UserBookController extends HttpServlet {
 			addBookUser(req,resp);
 		}else if ("login".equals(op)) {
 			login(req,resp);
+		}else if ("loginOut".equals(op)) {
+			req.getSession().removeAttribute("userName");
+			req.getSession().removeAttribute("user");
+			resp.sendRedirect("user/user-login.jsp");
 		}
 	}
 
